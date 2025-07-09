@@ -7,7 +7,7 @@ const Header = () => {
   const [title, setTitle] = useState<string>("");
   useEffect(() => {
     const route = routes[location.pathname];
-    setTitle(route || "Node Express Boilerplate");
+    setTitle(route || "Appointment Booking System");
   }, [location.pathname]);
 
   useEffect(() => {
