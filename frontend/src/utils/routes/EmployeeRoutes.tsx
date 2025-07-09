@@ -1,4 +1,4 @@
-import { useRoutes } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import LoginPage from "../../pages/login/LoginPage";
 import ProtectedRoutes from "../../components/ProtectedRoutes";
 import Dashboard from "../../components/employee/dashboard/Dashboard";
@@ -10,45 +10,29 @@ import theme from "../../theme";
 import { CssBaseline } from "@mui/material";
 
 const EmployeeRoutes = () => {
-  const routes = useRoutes([
-    {
-      path: "*",
-      element: (
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <ProtectedRoutes>
-            {useRoutes([
-              {
-                path: "login",
-                element: <HeaderLayout />,
-                children: [
-                  {
-                    index: true,
-                    element: <LoginPage />,
-                  },
-                ],
-              },
-              {
-                path: "/",
-                element: <PanelLayout />,
-                children: [
-                  {
-                    index: true,
-                    element: <Dashboard />,
-                  },
-                ],
-              },
-              {
-                path: "*",
-                element: <PageNotFound />,
-              },
-            ])}
-          </ProtectedRoutes>
-        </ThemeProvider>
-      ),
-    },
-  ]);
-  return routes;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Routes>
+        <Route path="login" element={<HeaderLayout />}>
+          <Route index element={<LoginPage />} />
+        </Route>
+
+        <Route
+          path="/"
+          element={
+            <ProtectedRoutes>
+              <PanelLayout />
+            </ProtectedRoutes>
+          }
+        >
+          <Route index element={<Dashboard />} />
+        </Route>
+
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </ThemeProvider>
+  );
 };
 
 export default EmployeeRoutes;
